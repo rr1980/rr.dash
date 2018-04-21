@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+const http = require('http');
 
 process.env.NODE_ENV = 'development';
 
@@ -38,15 +39,7 @@ module.exports = (env) => {
       host: 'localhost',
       port: 8080,
       publicPath: 'http://localhost:8080/',
-      before: (app) => {
-        app.get('/api/getInit', (req, res) => {
-          console.log("get: /api/getInit");
-          res.send({ name: "Rene" });
-        });
-        // app.post('/api/login', function(req, res, next) {
-        //     res.json({success: true})
-        // });
-      }
+      before: (app) => proxyFunction(app)
     },
     node: {
       fs: "empty"
@@ -80,7 +73,7 @@ module.exports = (env) => {
         },
         { test: /\.html$/, use: 'html-loader?minimize=false' },
         { test: /\.ts$/, use: isDevBuild ? ['awesome-typescript-loader?silent=true', 'angular2-template-loader', 'angular2-router-loader'] : '@ngtools/webpack' },
-        // { test: /[\/]jquery\.js$/, use: 'expose-loader?$!expose?jQuery' }
+        { test: /[\/]jquery\.js$/, use: 'expose-loader?$!expose?jQuery' }
       ]
     },
     resolve: {
@@ -119,11 +112,11 @@ module.exports = (env) => {
       new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, path.join(__dirname, './src')), // Workaround for https://github.com/angular/angular/issues/14898
       new webpack.ContextReplacementPlugin(/(.+)?angular(\\|\/)core(.+)?/, path.join(__dirname, './src')),
       new webpack.IgnorePlugin(/^vertx$/), // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
-      // new BundleAnalyzerPlugin({
-      //   analyzerMode: "static",
-      //   reportFilename: "main.html",
-      //   openAnalyzer: false,
-      // }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: "static",
+        reportFilename: "main.html",
+        openAnalyzer: false,
+      }),
     ].concat(isDevBuild ? [
       // Plugins that apply in development builds only
       new webpack.SourceMapDevToolPlugin({
@@ -172,8 +165,21 @@ module.exports = (env) => {
       // minimize: true
     },
     // watch: true
-    
+
   }
 
   return clientBundleConfig;
+};
+
+const proxyFunction = function (app) {
+
+  const server = http.createServer(app);
+  const io = require('./server/websocket.server').listen(server)
+
+  // app.use('/api', require("./server/controller/api.controller"));
+
+  server.listen(3001, () => {
+    console.log(`Listening on: http://localhost:${3001}`);
+  });
+
 };
