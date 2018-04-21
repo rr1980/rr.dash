@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "lib": [ "dom", "es2017" ],
+    "outDir": "./wwwroot/dist",
+    "paths": {
+      "@angular/*": ["./node_modules/@angular/*"]
+    },
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "strictNullChecks": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "module": "es6",
+    "target": "es5",
+    "strict": true,
+    "allowJs": false,
+    "typeRoots": [
+      "./node_modules/@types/"
+    ],
+  },
+  "exclude": [ "wwwroot", "node_modules", "server", ".vscode" ],
+  "atom": { "rewriteTsconfig": false },
+  "angularCompilerOptions": {
+    "strictMetadataEmit": false,
+    "debug": true,
+    "skipCodeGeneration": true,
+    "preserveWhitespaces": false,
+    "annotationsAs": "decorators"
+  }
+}
