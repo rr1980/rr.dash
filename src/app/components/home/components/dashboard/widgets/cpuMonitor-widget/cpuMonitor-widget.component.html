@@ -1,0 +1,15 @@
+<div *ngIf="!cpuViewModel || !cpuViewModel.cpus" class="progress-wrapper">
+  loading...
+</div>
+
+<!-- <div *ngIf="cpuViewModel && cpuViewModel.cpus"> -->
+<div class="widget-content">
+  <div class="widget-content-title text-center">
+    <span>CPUs</span>
+  </div>
+  <div style="display: block;">
+    <canvas baseChart height="250" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+      [chartType]="barChartType"></canvas>
+  </div>
+</div>
+<!-- </div>  -->

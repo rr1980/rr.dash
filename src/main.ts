@@ -9,18 +9,33 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { ViewEncapsulation } from '@angular/core';
 
-
 if (module.hot) {
     module.hot.accept();
-    module.hot.dispose(() => {
-        console.debug("hot reload!!!");
-        // Before restarting the app, we create a new root element and dispose the old one
-        const oldRootElem = document.querySelector('rr-app');
-        const newRootElem = document.createElement('rr-app');
-        oldRootElem!.parentNode!.insertBefore(newRootElem, oldRootElem);
-        modulePromise.then(appModule => appModule.destroy());
-    });
+    module.hot.dispose(() => modulePromise.then((appModule) => appModule.destroy()));
+    console.debug("RELOAD!");
+    //module.hot.dispose(() => {
+    //    // Before restarting the app, we create a new root element and dispose the old one
+    //    const oldRootElem = document.querySelector('app');
+    //    const newRootElem = document.createElement('app');
+    //    oldRootElem!.parentNode!.insertBefore(newRootElem, oldRootElem);
+    //    modulePromise.then(appModule => appModule.destroy());
+    //});
 } 
+// else {
+//     enableProdMode();
+// }
+
+// if (module.hot) {
+//     module.hot.accept();
+//     module.hot.dispose(() => {
+//         console.debug("hot reload!!!");
+//         // Before restarting the app, we create a new root element and dispose the old one
+//         const oldRootElem = document.querySelector('rr-app');
+//         const newRootElem = document.createElement('rr-app');
+//         oldRootElem!.parentNode!.insertBefore(newRootElem, oldRootElem);
+//         modulePromise.then(appModule => appModule.destroy());
+//     });
+// } 
 // else {
 //     enableProdMode();
 // }

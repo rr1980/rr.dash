@@ -1,21 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { HomeModel } from '../../models/home.model';
-import { HomeService } from '../../../../services/home.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserViewModel } from '../../../../models/app-state.model';
+import { AppStoreService } from '../../../../services/app-store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
-  public homeData: HomeModel;
+  public userViewModel: UserViewModel;
+  sub: Subscription;
 
-  constructor(private homeService: HomeService) { };
+  constructor(private appStoreService: AppStoreService) { };
 
   ngOnInit() {
-    this.homeService.Model.subscribe((response) => {
-      this.homeData = response;
+    this.sub = this.appStoreService.get('setLogin').subscribe((response) => {
+      this.userViewModel = response as UserViewModel;
     });
   };
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 };

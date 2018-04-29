@@ -1,12 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+// import { InternElectronService } from './providers/internElectron.service';
+// import { AppConfig } from './app.config';
 
 @Component({
   selector: 'rr-app',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-
+export class AppComponent implements AfterViewInit {
   constructor() {
-    console.log("I am Angular!");
-  };
-};
+
+    // console.log('AppConfig', AppConfig);
+
+    // if (internElectronService.isElectron()) {
+    //   console.log('Mode electron');
+    //   console.log('Electron ipcRenderer', internElectronService.ipcRenderer);
+    //   console.log('NodeJS childProcess', internElectronService.childProcess);
+    // } else {
+    //   console.log('Mode web');
+    // }
+  }
+
+  ngAfterViewInit(): void {
+    // this.appStateService.init();
+  }
+}

@@ -6,6 +6,7 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 const http = require('http');
+// import { io } from './server/controller/api.controller';
 
 process.env.NODE_ENV = 'development';
 
@@ -32,9 +33,9 @@ module.exports = (env) => {
         // warnings: true,
         errors: true
       },
-      inline: true,
+      inline: false,
       watchOptions: {
-        poll: true
+        poll: false
       },
       host: 'localhost',
       port: 8080,
@@ -174,8 +175,11 @@ module.exports = (env) => {
 const proxyFunction = function (app) {
 
   const server = http.createServer(app);
-  const io = require('./server/websocket.server').listen(server)
-
+  const io = require('./server/controller/api.controller.js').io;
+  
+  // console.log(JSON.stringify(io));
+  // var _io = new io();
+  io.init(server);
   // app.use('/api', require("./server/controller/api.controller"));
 
   server.listen(3001, () => {

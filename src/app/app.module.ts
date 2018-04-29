@@ -1,30 +1,29 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { AppComponent } from './app.component';
+// import 'zone.js/dist/zone-mix';
+// import 'reflect-metadata';
+// import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-
-import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule, routedComponents } from './app-routing.module';
 
+import { AppComponent } from './app.component';
+
+import { SharedModule } from './shared/shared.module';
+
+
 @NgModule({
-    bootstrap: [AppComponent],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        SharedModule.forRoot(),
-        AppRoutingModule,
-    ],
-    declarations: [
-        AppComponent,
-        routedComponents
-    ],
-    providers: [
-    ]
+  declarations: [
+    AppComponent,
+    routedComponents
+  ],
+  imports: [
+    BrowserModule,
+    BrowserModule,
+    SharedModule.forRoot(),
+    AppRoutingModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-
-export class AppModule {
-};
-
+export class AppModule { }

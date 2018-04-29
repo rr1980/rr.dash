@@ -43,20 +43,21 @@ var io = {
     init: function (app) {
         var io = socketio.listen(app);
         io.sockets.on('connection', function (socket) {
-            socket.on('getInit', function (event, arg) {
+            socket.on('getInit', function (arg) {
                 console.log('getInit called...');
                 io.emit('setInit', getAppState());
             });
-            socket.on('tryLogin', function (event, arg) {
-                console.log('tryLogin called...', arg, validateLogin(arg));
-                io.emit('setLogin', validateLogin(arg));
+            socket.on('tryLogin', function (arg) {
+                var res = validateLogin(arg);
+                console.log('tryLogin called...', arg, res);
+                io.emit('setLogin', res);
             });
-            socket.on('setCpuFeedOn', function (event, arg) {
+            socket.on('setCpuFeedOn', function (arg) {
                 os_data_service_1.OsDataService.getCpusFeed(function (response) {
                     io.emit('setCpus', response);
                 });
             });
-            socket.on('setCpuFeedOff', function (event, arg) {
+            socket.on('setCpuFeedOff', function (arg) {
                 os_data_service_1.OsDataService.stop();
             });
         });

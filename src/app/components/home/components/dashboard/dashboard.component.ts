@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { HomeService } from 'src/app/services/home.service';
-import { HomeModel } from 'src/app/components/home/models/home.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 
 @Component({
@@ -8,16 +6,21 @@ import { HomeModel } from 'src/app/components/home/models/home.model';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
-  public homeData: HomeModel;
-
-  constructor(private homeService: HomeService) { };
 
   ngOnInit() {
 
-    this.homeService.Model.subscribe((response) => {
-      this.homeData = response;
-    });
+
   };
+
+  ngOnDestroy(): void {
+  }
+
+
+  constructor() { };
+
+
+
+
 };

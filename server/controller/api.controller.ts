@@ -56,26 +56,27 @@ let io = {
 
         io.sockets.on('connection', function (socket) {
 
-            socket.on('getInit', (event, arg) => {
+            socket.on('getInit', (arg) => {
                 console.log('getInit called...');
                 io.emit('setInit', getAppState());
 
             })
 
-            socket.on('tryLogin', (event, arg) => {
-                console.log('tryLogin called...', arg, validateLogin(arg));
+            socket.on('tryLogin', (arg) => {
+                var res = validateLogin(arg);
+                console.log('tryLogin called...', arg,res );
 
-                io.emit('setLogin', validateLogin(arg));
+                io.emit('setLogin', res);
             })
 
-            socket.on('setCpuFeedOn', (event, arg) => {
+            socket.on('setCpuFeedOn', (arg) => {
 
                 OsDataService.getCpusFeed((response) => {
                     io.emit('setCpus', response);
                 });
             })
 
-            socket.on('setCpuFeedOff', (event, arg) => {
+            socket.on('setCpuFeedOff', (arg) => {
                 OsDataService.stop();
             })
         })
