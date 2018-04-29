@@ -9,20 +9,21 @@
     },
     "noImplicitAny": false,
     "sourceMap": true,
+    "declaration": false,
     "moduleResolution": "node",
     "strictNullChecks": false,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
+    "allowJs": true,
     "emitDecoratorMetadata": true,
     "module": "es6",
-    "target": "es5",
+    "target": "es6",
     "strict": true,
-    "allowJs": false,
     "typeRoots": [
       "./node_modules/@types/"
-    ],
+    ]
   },
-  "exclude": [ "wwwroot", "node_modules", "server", ".vscode" ],
+  "exclude": [ "wwwroot", "node_modules", ".vscode" ],
   "atom": { "rewriteTsconfig": false },
   "angularCompilerOptions": {
     "strictMetadataEmit": false,
