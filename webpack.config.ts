@@ -95,8 +95,8 @@ module.exports = (env) => {
       new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new AngularCompilerPlugin({
-        tsConfigPath: './tsconfig.json',
-        entryModule: './src/app/app.module#AppModule',
+        tsConfigPath: path.join(__dirname, './tsconfig.json'),
+        entryModule: path.join(__dirname, './src/app/app.module#AppModule'),
         sourceMap: true,
         mainPath: path.join(__dirname, 'src'),
         // skipCodeGeneration: true
@@ -176,7 +176,7 @@ const proxyFunction = function (app) {
 
   const server = http.createServer(app);
   const io = require('./server/controller/api.controller.js').io;
-  
+
   // console.log(JSON.stringify(io));
   // var _io = new io();
   io.init(server);

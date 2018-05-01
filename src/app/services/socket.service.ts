@@ -12,7 +12,7 @@ export class SocketService {
         this.socket = socketIo('http://localhost:3001');
     };
 
-    send(key: string, data: any) {
+    send(key: string, data: any) { 
         this.socket.emit(key, data);
     };
 
